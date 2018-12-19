@@ -1528,7 +1528,7 @@ CommaSeparatedModifierNameList
     }
 
 InformalParameter
-  = type:Type __ isindexed:IndexedToken? __ isconstant:ConstantToken? __ isstorage:StorageToken? __ ismemory:MemoryToken? iscalldata:CalldataToken? __ id:Identifier?
+  = type:Type __ isindexed:IndexedToken? __ isconstant:ConstantToken? __ isstorage:StorageToken? __ ismemory:MemoryToken? __ iscalldata:CalldataToken? __ id:Identifier?
   {
     return {
       type: "InformalParameter",
