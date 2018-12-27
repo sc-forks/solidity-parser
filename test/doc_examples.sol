@@ -587,3 +587,11 @@ contract payableAddress {
 		address eve3;
 	}
 }
+
+contract TestCalldataSpecifier {
+  function set(string calldata _value) external {
+    value = _value;
+  }
+
+  string public value;
+}
