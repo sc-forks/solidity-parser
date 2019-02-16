@@ -183,6 +183,16 @@ IdentifierPart
   = IdentifierStart
   / UnicodeDigit
 
+AddressPayable
+  = "address" __  PayableToken {
+    return {
+      type: "Identifier",
+      name: "address_payable",
+      start: location().start.offset,
+      end: location().end.offset
+    };
+  }
+
 UnicodeLetter
   = Lu
   / Ll
@@ -460,6 +470,7 @@ AnonymousToken  = "anonymous"  !IdentifierPart
 ABIEncoderV2Token = "ABIEncoderV2" !IdentifierPart
 AsToken         = "as"         !IdentifierPart
 BreakToken      = "break"      !IdentifierPart
+CalldataToken   = "calldata"   !IdentifierPart
 ClassToken      = "class"      !IdentifierPart
 ConstantToken   = "constant"   !IdentifierPart
 ConstructorToken = "constructor" !IdentifierPart
@@ -497,6 +508,7 @@ MinutesToken    = "minutes"    !IdentifierPart
 ModifierToken   = "modifier"   !IdentifierPart
 NewToken        = "new"        !IdentifierPart
 NullToken       = "null"       !IdentifierPart
+PayableToken    = "payable"    !IdentifierPart
 PrivateToken    = "private"    !IdentifierPart
 PragmaToken     = "pragma"     !IdentifierPart
 PublicToken     = "public"     !IdentifierPart
@@ -700,7 +712,7 @@ LeftHandSideExpression
   / Interpolation
 
 Type
-  = literal:(Mapping / Identifier / FunctionToken __ FunctionName __ ModifierArgumentList? __ ReturnsDeclaration? __ IdentifierName?) members:("." Identifier)* parts:(__"[" __ (Expression)? __ "]")*
+  = literal:(Mapping / AddressPayable / Identifier / FunctionToken __ FunctionName __ ModifierArgumentList? __ ReturnsDeclaration? __ IdentifierName?) members:("." Identifier)* parts:(__"[" __ (Expression)? __ "]")*
   {
     return {
       type: "Type",
@@ -720,6 +732,7 @@ VisibilitySpecifier
 StorageLocationSpecifier
   = StorageToken
   / MemoryToken
+  / CalldataToken
 
 StateVariableSpecifiers
   = specifiers:(VisibilitySpecifier __ ConstantToken?){
@@ -998,6 +1011,7 @@ Statement
   / ReturnStatement
   / ThrowStatement
   / UsingStatement
+  / FunctionDeclaration
 
 Block
   = "{" __ body:(StatementList __)? "}" {
@@ -1526,7 +1540,7 @@ CommaSeparatedModifierNameList
     }
 
 InformalParameter
-  = type:Type __ isindexed:IndexedToken? __ isconstant:ConstantToken? __ isstorage:StorageToken? __ ismemory:MemoryToken? __ id:Identifier?
+  = type:Type __ isindexed:IndexedToken? __ isconstant:ConstantToken? __ isstorage:StorageToken? __ ismemory:MemoryToken? __ iscalldata:CalldataToken? __ id:Identifier?
   {
     return {
       type: "InformalParameter",
@@ -1536,6 +1550,7 @@ InformalParameter
       is_storage: isconstant != null,
       is_storage: isstorage != null,
       is_memory: ismemory != null,
+      is_calldata: iscalldata != null,
       start: location().start.offset,
       end: location().end.offset
     };
