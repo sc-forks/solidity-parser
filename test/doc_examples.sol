@@ -578,3 +578,26 @@ library Array256Lib {
     }
   }
 }
+
+contract payableAddress {
+	address payable public alice;
+	function payBob(address payable _bob) public {
+		address payable eve;
+		address payable eve2 = _bob;
+		address eve3;
+	}
+}
+
+contract arrayInTupple {
+	function hello(bytes memory _world) public {
+		uint256[] memory yolo = abi.decode(_world, (uint256[]));
+	}
+}
+
+contract TestCalldataSpecifier {
+  function set(string calldata _value) external {
+    value = _value;
+  }
+
+  string public value;
+}
