@@ -587,3 +587,9 @@ contract payableAddress {
 		address eve3;
 	}
 }
+
+contract arrayInTupple {
+	function hello(bytes memory _world) public {
+		uint256[] memory yolo = abi.decode(_world, (uint256[]));
+	}
+}

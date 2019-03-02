@@ -615,6 +615,7 @@ MemberExpression
       / __ "." __ property:IdentifierName {
           return { property: property, computed: false, start: location().start.offset, end: location().end.offset };
         }
+      / ArrayLiteral
     )*
     {
       return buildTree(head, tail, function(result, element) {
