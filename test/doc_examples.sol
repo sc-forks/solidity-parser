@@ -593,3 +593,11 @@ contract arrayInTupple {
 		uint256[] memory yolo = abi.decode(_world, (uint256[]));
 	}
 }
+
+contract TestCalldataSpecifier {
+  function set(string calldata _value) external {
+    value = _value;
+  }
+
+  string public value;
+}
